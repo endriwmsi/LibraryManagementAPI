@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LibraryManagementAPI.Domain.Entities;
+using LibraryManagementAPI.Data.Types;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -20,41 +21,9 @@ namespace LibraryManagementAPI.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.BorrowedBooks)
-                .WithMany(b => b.BorrowedByUsers)
-                .UsingEntity<Dictionary<string, object>>(
-                    "BorrowedBooks",
-                    j => j
-                        .HasOne<Book>()
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade),
-                    j => j
-                        .HasOne<User>()
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                );
-
-            modelBuilder.Entity<Book>()
-                .HasMany(b => b.Author)
-                .WithMany(a => a.Books)
-                .UsingEntity<Dictionary<string, object>>(
-                    "BookAuthor",
-                    j => j
-                        .HasOne<Author>()
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade),
-                    j => j
-                        .HasOne<Book>()
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                );
-
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new AuthorMap());
+            modelBuilder.ApplyConfiguration(new BookMap());
+            modelBuilder.ApplyConfiguration(new AuthorBookMap());
         }
     }
 }
