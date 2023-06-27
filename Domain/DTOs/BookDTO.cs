@@ -11,6 +11,5 @@ namespace LibraryManagementAPI.Domain.DTOs
         public string Title { get; set; }
 
         public IList<AuthorDTO> Authors { get; set; }
-        public IList<UserDTO> BorrowedByUsers { get; set; }
     }
 }

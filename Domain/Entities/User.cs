@@ -8,6 +8,6 @@ namespace LibraryManagementAPI.Domain.Entities
     public class User : Entity
     {
         public string Name { get; set; }
-        public ICollection<Book> BorrowedBooks { get; set; }
+        public IList<Book> BorrowedBooks { get; set; }
     }
 }

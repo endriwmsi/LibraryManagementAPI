@@ -17,7 +17,7 @@ namespace LibraryManagementAPI.Data.Repositories
             _context = context;
         }
 
-        public IEnumerable<Book> GetAllBooks()
+        public IList<Book> GetAllBooks()
         {
             return _context.Books.ToList();
         }

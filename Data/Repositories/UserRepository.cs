@@ -17,7 +17,7 @@ namespace LibraryManagementAPI.Data.Repositories
             _context = context;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IList<User> GetAllUsers()
         {
             return _context.Users.ToList();
         }

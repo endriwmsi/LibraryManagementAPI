@@ -8,7 +8,7 @@ namespace LibraryManagementAPI.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        IEnumerable<User> GetAllUsers();
+        IList<User> GetAllUsers();
         User GetUserById(int id);
         void AddUser(User user);
         void UpdateUser(User user);

@@ -8,7 +8,7 @@ namespace LibraryManagementAPI.Domain.Interfaces
 {
     public interface IAuthorRepository
     {
-        IEnumerable<Author> GetAllAuthors();
+        IList<Author> GetAllAuthors();
         Author GetAuthorById(int id);
         void AddAuthor(Author author);
         void UpdateAuthor(Author author);
