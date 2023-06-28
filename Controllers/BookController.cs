@@ -17,9 +17,10 @@ namespace LibraryManagementAPI.Controllers
         private readonly IAuthorBookRepository _authorBookRepository;
         private readonly IMapper _mapper;
 
-        public BookController(IBookRepository bookRepository, IMapper mapper)
+        public BookController(IBookRepository bookRepository, IAuthorBookRepository authorBookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _authorBookRepository = authorBookRepository;
             _mapper = mapper;
         }
 
@@ -52,7 +53,7 @@ namespace LibraryManagementAPI.Controllers
         {
             var book = _mapper.Map<Book>(bookViewModel);
 
-            // Adiciona o autor ao livro
+            // Adiciona o autor ao livro na AuthorBook
             foreach (var authorId in bookViewModel.AuthorsId)
             {
                 var author = _authorRepository.GetAuthorById(authorId);
@@ -60,8 +61,8 @@ namespace LibraryManagementAPI.Controllers
                 {
                     author = new Author { Id = authorId };
                     _authorRepository.AddAuthor(author);
+                    _authorBookRepository.AddAuthor(author);
                 }
-                book.Authors.Add(author);
             }
             _bookRepository.AddBook(book);
 
