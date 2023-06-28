@@ -55,14 +55,6 @@ namespace LibraryManagementAPI.Controllers
             }
 
             var book = _mapper.Map<Book>(bookViewModel);
-            var author = _authorRepository.GetAuthorById(bookViewModel.AuthorId);
-
-            if (author == null)
-            {
-                return NotFound("Author not found");
-            }
-
-            book.Author = author;
             _bookRepository.AddBook(book);
 
             var bookDTO = _mapper.Map<BookDTO>(book);
