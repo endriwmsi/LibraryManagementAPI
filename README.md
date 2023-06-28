@@ -53,33 +53,49 @@ Build or execute this project locally
 
 ## API Reference
 
-#### Get all Authors
-
+#### Get Authors
 ```http
   GET /api/authors
 ```
 ```JSON
 {
   "id": 1,
-  "name": "Author 1",
-  "books": {
-      "id": "1",
-      "title": "Title 1",
-      "authors": [{
-          "name": "Author 1"
-      }]
-  }
+  "name": "Author name",
+  "books": []
 }
 ```
 
 #### POST Author
-
 ```http
   POST /api/authors/
 ```
 ```JSON
 {
-  "name": "AuthorName"
+  "name": "Author name"
+}
+```
+#### Get Books
+```http
+  GET /api/Books
+```
+```JSON
+{
+  "id": 1,
+  "title": "Book title",
+  "authors": []
+}
+```
+
+#### POST Book
+```http
+  POST /api/books/
+```
+```JSON
+{
+  "title": "Book title",
+  "authorsId": [
+    0
+  ]
 }
 ```
 
