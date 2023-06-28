@@ -2,6 +2,7 @@ using AutoMapper;
 using LibraryManagementAPI.Domain.DTOs;
 using LibraryManagementAPI.Domain.Interfaces;
 using LibraryManagementAPI.Domain.Entities;
+using LibraryManagementAPI.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -45,21 +46,23 @@ namespace LibraryManagementAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserDTO userDTO)
+        public IActionResult CreateUser(UserViewModel userViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var user = _mapper.Map<User>(userDTO);
+            var user = _mapper.Map<User>(userViewModel);
             _userRepository.AddUser(user);
 
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+            var userDTO = _mapper.Map<UserDTO>(user);
+
+            return CreatedAtAction(nameof(GetUserById), new { id = userDTO.Id }, userDTO);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, UserDTO userDTO)
+        public IActionResult UpdateUser(int id, UserViewModel userViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -73,7 +76,7 @@ namespace LibraryManagementAPI.Controllers
                 return NotFound();
             }
 
-            _mapper.Map(userDTO, user);
+            _mapper.Map(userViewModel, user);
             _userRepository.UpdateUser(user);
 
             return NoContent();

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using LibraryManagementAPI.Data.Context;
 using LibraryManagementAPI.Data.Repositories;
 using LibraryManagementAPI.Domain.Interfaces;
-using LibraryManagementAPI.Mappings;
+
 
 
 namespace LibraryManagementAPI
@@ -32,7 +32,7 @@ namespace LibraryManagementAPI
             services.AddScoped<IUserRepository, UserRepository>();
 
             // Configuração do AutoMapper
-            services.AddAutoMapper(typeof(MappingProfile));
+            services.AddAutoMapper(typeof(Program));
 
             services.AddControllers();
 

@@ -2,6 +2,7 @@ using AutoMapper;
 using LibraryManagementAPI.Domain.DTOs;
 using LibraryManagementAPI.Domain.Interfaces;
 using LibraryManagementAPI.Domain.Entities;
+using LibraryManagementAPI.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementAPI.Controllers
@@ -44,21 +45,23 @@ namespace LibraryManagementAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAuthor(AuthorDTO authorDTO)
+        public IActionResult CreateAuthor(AuthorViewModel authorViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var author = _mapper.Map<Author>(authorDTO);
+            var author = _mapper.Map<Author>(authorViewModel);
             _authorRepository.AddAuthor(author);
 
-            return CreatedAtAction(nameof(GetAuthorById), new { id = author.Id }, author);
+            var authorDTO = _mapper.Map<AuthorDTO>(author);
+
+            return CreatedAtAction(nameof(GetAuthorById), new { id = authorDTO.Id }, authorDTO);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateAuthor(int id, AuthorDTO authorDTO)
+        public IActionResult UpdateAuthor(int id, AuthorViewModel authorViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -72,7 +75,7 @@ namespace LibraryManagementAPI.Controllers
                 return NotFound();
             }
 
-            _mapper.Map(authorDTO, author);
+            _mapper.Map(authorViewModel, author);
             _authorRepository.UpdateAuthor(author);
 
             return NoContent();

@@ -8,6 +8,6 @@ namespace LibraryManagementAPI.Domain.Entities
     public class Author : Entity
     {   
         public string Name { get; set; }
-        public IList<AuthorBook> AuthorBook { get; set; }
+        public IList<AuthorBook> Books { get; set; }
     }
 }

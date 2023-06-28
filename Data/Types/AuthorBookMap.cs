@@ -22,13 +22,13 @@ namespace LibraryManagementAPI.Data.Types
             builder.Property(i => i.AuthorId).IsRequired();
             builder.Property(i => i.AuthorId).HasColumnName("author_id");
             builder.HasOne(i => i.Author)
-                .WithMany(a => a.Books)
+                .WithMany(i => i.Books)
                 .HasForeignKey(i => i.AuthorId);
 
             builder.Property(i => i.BookId).IsRequired();
             builder.Property(i => i.BookId).HasColumnName("book_id");
             builder.HasOne(i => i.Book)
-                .WithMany()
+                .WithMany(i => i.Authors)
                 .HasForeignKey(i => i.BookId);
         }
     }
