@@ -11,5 +11,6 @@ namespace LibraryManagementAPI.Domain.Interfaces
     public interface IAuthorBookRepository
     {
         void AddAuthor(Author author);
+        void AddBook(Book Book);
     }
 }

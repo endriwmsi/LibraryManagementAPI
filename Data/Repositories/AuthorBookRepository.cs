@@ -22,5 +22,11 @@ namespace LibraryManagementAPI.Data.Repositories
             _context.Authors.Add(author);
             _context.SaveChanges();
         }
+
+        public void AddBook(Book book)
+        {
+            _context.Books.Add(book);
+            _context.SaveChanges();
+        }
     }
 }
