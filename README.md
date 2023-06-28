@@ -54,7 +54,7 @@ Test the API using Postman or Swagger
 
 #### Get Authors
 ```http
-  GET /api/authors
+  GET /api/authors/
 ```
 ```JSON
 {
