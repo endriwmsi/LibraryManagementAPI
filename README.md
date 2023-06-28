@@ -41,6 +41,14 @@ Build or execute this project locally
 ```bash
   dotnet build / dotnet run
 ```
+## Installation
+
+Test the API using Postman or Swagger
+
+```bash
+  http://localhost:5016/api/books
+  http://localhost:5016/swagger/index.html
+```
 
 ## API Reference
 
