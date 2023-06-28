@@ -24,9 +24,9 @@ namespace LibraryManagementAPI.Controllers
         public IActionResult GetAllAuthors()
         {
             var authors = _authorRepository.GetAllAuthors();
-            var authorDTOs = _mapper.Map<List<AuthorDTO>>(authors);
+            var authorDTO = _mapper.Map<List<AuthorDTO>>(authors);
 
-            return Ok(authorDTOs);
+            return Ok(authorDTO);
         }
 
         [HttpGet("{id}")]
@@ -41,7 +41,7 @@ namespace LibraryManagementAPI.Controllers
 
             var authorDTO = _mapper.Map<AuthorDTO>(author);
 
-            return Ok();
+            return Ok(authorDTO);
         }
 
         [HttpPost]
@@ -78,7 +78,12 @@ namespace LibraryManagementAPI.Controllers
             _mapper.Map(authorViewModel, author);
             _authorRepository.UpdateAuthor(author);
 
-            return NoContent();
+            return Ok(new
+            {
+                StatusCode = 200,
+                Message = "Autor atualizado com sucesso!"
+            });
+            
         }
 
         [HttpDelete("{id}")]
@@ -93,7 +98,11 @@ namespace LibraryManagementAPI.Controllers
 
             _authorRepository.DeleteAuthor(author);
 
-            return NoContent();
+            return Ok(new
+            {
+                StatusCode = 200,
+                Message = "Autor deletado com sucesso!"
+            });
         }
     }
 }
