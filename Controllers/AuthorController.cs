@@ -52,25 +52,6 @@ namespace LibraryManagementAPI.Controllers
         public IActionResult CreateAuthor(AuthorViewModel authorViewModel)
         {
             var author = _mapper.Map<Author>(authorViewModel);
-
-            // Adiciona o livro ao autor
-            foreach (var bookId in authorViewModel.BooksId)
-            {
-               var book = _bookRepository.GetBookById(bookId);
-               if (book == null)
-               {
-                    book = new Book { Id = bookId};
-                    _bookRepository.AddBook(book);
-
-                    var authorBook = new AuthorBook
-                    {
-                        AuthorId = author.Id,
-                        BookId = book.Id
-                    };
-
-                    _authorBookRepository.AddBook(book);
-               }
-            }
             _authorRepository.AddAuthor(author);
 
             var authorDTO = _mapper.Map<AuthorDTO>(author);
