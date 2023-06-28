@@ -14,6 +14,7 @@ namespace LibraryManagementAPI.Controllers
     {
         private readonly IBookRepository _bookRepository;
         private readonly IAuthorRepository _authorRepository;
+        private readonly IAuthorBookRepository _authorBookRepository;
         private readonly IMapper _mapper;
 
         public BookController(IBookRepository bookRepository, IMapper mapper)
@@ -28,7 +29,7 @@ namespace LibraryManagementAPI.Controllers
             var books = _bookRepository.GetAllBooks();
             var bookDTOs = _mapper.Map<List<BookDTO>>(books);
 
-            return Ok(bookDTOs);
+            return Ok();
         }
 
         [HttpGet("{id}")]
@@ -43,23 +44,30 @@ namespace LibraryManagementAPI.Controllers
 
             var bookDTO = _mapper.Map<BookDTO>(book);
 
-            return Ok(bookDTO);
+            return Ok();
         }
 
         [HttpPost]
-        public IActionResult CreateBook(BookViewModel bookViewModel)
-        { 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
+        public IActionResult AddBook(BookViewModel bookViewModel)
+        {
             var book = _mapper.Map<Book>(bookViewModel);
+
+            // Adiciona o autor ao livro
+            foreach (var authorId in bookViewModel.AuthorsId)
+            {
+                var author = _authorRepository.GetAuthorById(authorId);
+                if (author == null)
+                {
+                    author = new Author { Id = authorId };
+                    _authorRepository.AddAuthor(author);
+                }
+                book.Authors.Add(author);
+            }
             _bookRepository.AddBook(book);
 
-            var bookDTO = _mapper.Map<BookDTO>(book);
+            var BookDTO = _mapper.Map<BookDTO>(book);
 
-            return CreatedAtAction(nameof(GetBookById), new { id = bookDTO.Id }, bookDTO);
+            return CreatedAtAction(nameof(GetBookById), new { id = BookDTO.Id }, BookDTO);
         }
 
         [HttpPut("{id}")]

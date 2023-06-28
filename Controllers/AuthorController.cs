@@ -41,7 +41,7 @@ namespace LibraryManagementAPI.Controllers
 
             var authorDTO = _mapper.Map<AuthorDTO>(author);
 
-            return Ok(authorDTO);
+            return Ok();
         }
 
         [HttpPost]

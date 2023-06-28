@@ -27,7 +27,7 @@ namespace LibraryManagementAPI.Controllers
             var users = _userRepository.GetAllUsers();
             var userDTOs = _mapper.Map<List<UserDTO>>(users);
 
-            return Ok(userDTOs);
+            return Ok();
         }
 
         [HttpGet("{id}")]
@@ -42,7 +42,7 @@ namespace LibraryManagementAPI.Controllers
 
             var userDTO = _mapper.Map<UserDTO>(user);
 
-            return Ok(userDTO);
+            return Ok();
         }
 
         [HttpPost]
