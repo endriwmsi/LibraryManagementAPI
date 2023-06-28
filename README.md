@@ -41,7 +41,7 @@ Build or execute this project locally
 ```bash
   dotnet build / dotnet run
 ```
-## Installation
+## Running this WebAPI
 
 Test the API using Postman or Swagger
 
