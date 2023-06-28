@@ -76,7 +76,7 @@ Build or execute this project locally
 ```
 #### Get Books
 ```http
-  GET /api/Books
+  GET /api/books/
 ```
 ```JSON
 {
